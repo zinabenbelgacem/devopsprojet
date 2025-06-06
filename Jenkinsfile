@@ -28,7 +28,7 @@ stage('Docker Login') {
         stage('Build Discovery Service') {
             steps {
                 dir('discovery-service') {
-                    bat '.\\mvnw.cmd clean compile -DskipTests'
+                    bat '.\\mvnw.cmd clean package  -DskipTests'
                     script {
                         docker.build("${REGISTRY}/bank-discovery-service", '.')
                     }
