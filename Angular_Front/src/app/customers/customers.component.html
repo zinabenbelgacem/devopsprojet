@@ -1,0 +1,29 @@
+<div class="p-3">
+    <div class="card">
+      <div class="card-body">
+                        <button class="btn btn-success" >Add New Customer</button>
+
+        <table *ngIf="customers" class="table">
+          <thead>
+           <tr>
+             <th>ID</th><th>First Name</th><th>Last name</th><th>Email</th>
+                         <th>Action</th>
+
+           </tr>
+          </thead>
+          <tbody>
+           <tr *ngFor="let c of customers">
+             <td>{{c.id}}</td>
+             <td>{{c.firstName}}</td>
+             <td>{{c.lastName}}</td>
+             <td>{{c.email}}</td>
+              <td>
+              <button class="btn btn-primary btn-sm me-2" >Modifier</button>
+              <button class="btn btn-danger btn-sm" >Supprimer</button>
+            </td>
+           </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

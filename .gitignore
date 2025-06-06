@@ -1,0 +1,18 @@
+# Node.js
+node_modules/
+.angular/
+dist/
+
+# Maven/Java
+target/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

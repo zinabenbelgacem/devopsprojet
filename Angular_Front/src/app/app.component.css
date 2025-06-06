@@ -1,0 +1,55 @@
+.navbar {
+  font-size: 16px;
+}
+
+.navbar-brand {
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #ffffff !important;
+  background-color: #0056b3;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.dropdown-menu {
+  border-radius: 0.5rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+form .form-control {
+  border-radius: 20px;
+}
+
+form .btn {
+  border-radius: 20px;
+}
+li a {
+  color: white;               /* Texte blanc */
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  display: inline-block;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+li a:hover,
+li a:focus,
+li a:active {
+  color: #0d6efd;             /* Bleu vif au survol, focus, clic */
+  outline: none;              /* Supprime le contour focus par défaut */
+}
+
+
+

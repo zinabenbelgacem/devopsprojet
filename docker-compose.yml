@@ -1,0 +1,106 @@
+services:
+  bank-discovery-service:
+    image: zinabenbelgacem/bank-discovery-service
+    build: ./discovery-service
+    container_name: bank-discovery-service
+    ports:
+      - '8761:8761'
+    expose:
+      - '8761'
+    healthcheck:
+      test: ["CMD","curl" , "-f" , "http://localhost:8761/actuator/health"]
+      interval: 10s #chaque 10s il envoi reponse
+      retries: 4
+
+  bank-config-service:
+    image: zinabenbelgacem/bank-config-service
+
+    build: ./config-service
+    container_name: bank-config-service
+    ports:
+      - '9999:9999'
+    expose:
+      - '9999'
+    environment:
+      - DISCOVERY_SERVICE_URL=http://bank-discovery-service:8761/eureka
+    healthcheck:
+      test: [ "CMD","curl" , "-f" , "http://localhost:9999/actuator/health" ]
+      interval: 10s #chaque 10s il envoi reponse
+      retries: 4
+    depends_on:
+     bank-discovery-service :
+       condition: service_healthy
+
+  bank-customer-service:
+    image: zinabenbelgacem/bank-customer-service
+
+    build: ./customer-service
+    container_name: bank-customer-service
+    ports:
+      - '8084:8084'
+    expose:
+      - '8084'
+    environment:
+      - DISCOVERY_SERVICE_URL=http://bank-discovery-service:8761/eureka
+      - CONFIG_SERVICE_URL=http://bank-config-service:9999
+    healthcheck:
+      test: [ "CMD","curl" , "-f" , "http://localhost:8084/actuator/health" ]
+      interval: 10s #chaque 10s il envoi reponse
+      retries: 4
+    depends_on:
+      bank-config-service:
+        condition: service_healthy
+
+
+  bank-account-service:
+      image: zinabenbelgacem/bank-account-service
+
+      build: ./account-service
+      container_name: bank-account-service
+      ports:
+        - '8081:8081'
+      expose:
+        - '8081'
+      environment:
+        - DISCOVERY_SERVICE_URL=http://bank-discovery-service:8761/eureka
+        - CONFIG_SERVICE_URL=http://bank-config-service:9999
+      depends_on:
+        bank-customer-service:
+          condition: service_healthy
+
+
+  bank-gateway-service:
+    image: zinabenbelgacem/bank-gateway-service
+
+    build: ./gateway-service
+    container_name: bank-gateway-service
+    ports:
+      - '8888:8888'
+    expose:
+      - '8888'
+    environment:
+      - DISCOVERY_SERVICE_URL=http://bank-discovery-service:8761/eureka
+      - CONFIG_SERVICE_URL=http://bank-config-service:9999
+    depends_on:
+      bank-config-service:
+        condition: service_healthy
+
+
+  front-end-angular:
+    image: zinabenbelgacem/front-end-angular
+
+    build: ./Angular_Front
+    container_name:  front-end-angular
+    ports:
+      - '4200:80'
+    expose:
+      - '80'
+
+
+
+
+
+
+
+
+
