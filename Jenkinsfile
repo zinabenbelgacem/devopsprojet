@@ -16,7 +16,7 @@ git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
         stage('Build Discovery Service') {
             steps {
                 dir('discovery-service') {
-sh './mvnw clean compile -DskipTests'
+sh './mvnw clean compile -DskipTests -X'
                     script {
                         docker.build("${REGISTRY}/bank-discovery-service", '.')
                     }
