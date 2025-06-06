@@ -39,7 +39,7 @@ stage('Docker Login') {
         stage('Build Config Service') {
             steps {
                 dir('config-service') {
-                    sh './mvnw clean package -DskipTests'
+                    bat '.\\mvnw.cmd clean package  -DskipTests'
                     script {
                         docker.build("${REGISTRY}/bank-config-service", '.')
                     }
@@ -50,7 +50,7 @@ stage('Docker Login') {
         stage('Build Customer Service') {
             steps {
                 dir('customer-service') {
-                    sh './mvnw clean package -DskipTests'
+                    bat '.\\mvnw.cmd clean package  -DskipTests'
                     script {
                         docker.build("${REGISTRY}/bank-customer-service", '.')
                     }
@@ -61,7 +61,7 @@ stage('Docker Login') {
         stage('Build Account Service') {
             steps {
                 dir('account-service') {
-                    sh './mvnw clean package -DskipTests'
+                    bat '.\\mvnw.cmd clean package  -DskipTests'
                     script {
                         docker.build("${REGISTRY}/bank-account-service", '.')
                     }
@@ -72,7 +72,7 @@ stage('Docker Login') {
         stage('Build Gateway Service') {
             steps {
                 dir('gateway-service') {
-                    sh './mvnw clean package -DskipTests'
+                    bat '.\\mvnw.cmd clean package  -DskipTests'
                     script {
                         docker.build("${REGISTRY}/bank-gateway-service", '.')
                     }
@@ -83,8 +83,8 @@ stage('Docker Login') {
         stage('Build Angular Front') {
             steps {
                 dir('Angular_Front') {
-                    sh 'npm install'
-                    sh 'npm run build --configuration=production'
+                    bat 'npm install'
+                    bat 'npm run build --configuration=production'
                     script {
                         docker.build("${REGISTRY}/front-end-angular", '.')
                     }
