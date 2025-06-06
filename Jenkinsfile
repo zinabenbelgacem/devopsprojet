@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     environment {
+        DOCKER_PASS = "ahlazina1234"
         REGISTRY = "zinabenbelgacem"
-        DOCKER_CREDENTIALS_ID = "2a030e24-e16b-4dce-8e76-bd90d3da431c"
+        DOCKER_USER = "zinabenbelgacem"
+        DOCKER_CREDENTIALS_ID = "6f72d25e-c95a-43ea-b5c9-832a81b751e9"
     }
 
     stages {
