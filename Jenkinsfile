@@ -12,11 +12,14 @@ pipeline {
 git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
-         stage('Docker Login') {
+ stage('Docker Login') {
             steps {
-                sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-creds-id', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                    }
+                }
             }
-        }
 
         stage('Build Discovery Service') {
             steps {
