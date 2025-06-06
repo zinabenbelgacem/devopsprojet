@@ -13,12 +13,12 @@ git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
 
-        stage('Build Discovery Service') {
+    stage('Build Discovery Service') {
             steps {
                 dir('discovery-service') {
                     bat '.\\mvnw.cmd clean compile -DskipTests'
                     script {
-                        docker.build("${REGISTRY}/bank-discovery-service", '.')
+                        docker.build("${REGISTRY}/bank-discovery-service")
                     }
                 }
             }
