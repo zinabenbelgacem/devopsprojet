@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Omarab2022/-Dockerize-MicroServices-Arch-Spring-Angular-.git'
+                git 'https://github.com/zinabenbelgacem/devopsprojet.git'
             }
         }
 
