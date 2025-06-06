@@ -12,6 +12,26 @@ pipeline {
 git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
+        pipeline {
+  agent any
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds-id') // l'ID Jenkins des credentials
+  }
+  stages {
+    stage('Docker Login') {
+      steps {
+        sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
+      }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t zinabenbelgacem/bank-discovery-service .'
+      }
+    }
+  }
+}
+
 
     stage('Build Discovery Service') {
             steps {
