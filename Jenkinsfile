@@ -12,28 +12,18 @@ pipeline {
 git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
-        pipeline {
-  agent any
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds-id') // l'ID Jenkins des credentials
-  }
-  stages {
-    stage('Docker Login') {
-      steps {
-        sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
-      }
-    }
+         stage('Docker Login') {
+            steps {
+                sh 'echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
+            }
+        }
 
-
-
-
-
-    stage('Build Discovery Service') {
+        stage('Build Discovery Service') {
             steps {
                 dir('discovery-service') {
                     bat '.\\mvnw.cmd clean compile -DskipTests'
                     script {
-                        docker.build("${REGISTRY}/bank-discovery-service")
+                        docker.build("${REGISTRY}/bank-discovery-service", '.')
                     }
                 }
             }
@@ -126,4 +116,4 @@ git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
     }
-}}
+}
