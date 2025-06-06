@@ -24,13 +24,8 @@ git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
       }
     }
 
-    stage('Build Docker Image') {
-      steps {
-        sh 'docker build -t zinabenbelgacem/bank-discovery-service .'
-      }
-    }
-  }
-}
+
+
 
 
     stage('Build Discovery Service') {
@@ -131,4 +126,4 @@ git branch: 'main', url: 'https://github.com/zinabenbelgacem/devopsprojet'
             }
         }
     }
-}
+}}
