@@ -2,9 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_PASS = "ahlazina1234"
         REGISTRY = "zinabenbelgacem"
-        DOCKER_USER = "zinabenbelgacem"
         DOCKER_CREDENTIALS_ID = "6f72d25e-c95a-43ea-b5c9-832a81b751e9"
     }
 
@@ -18,13 +16,12 @@ stage('Docker Login') {
     steps {
         script {
             withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                sh '''
-                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                '''
+                sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
             }
         }
     }
 }
+
 
 
         stage('Build Discovery Service') {
