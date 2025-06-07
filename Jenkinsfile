@@ -79,19 +79,31 @@ stage('Docker Login') {
                 }
             }
         }
-
-     stage('Build Angular Front') {
+stage('Build Angular Front') {
     steps {
         dir('Angular_Front') {
-            // Nettoyage de node_modules si présent (évite EPERM)
-bat 'IF EXIST node_modules rmdir /s /q node_modules'
-bat 'npm install --no-audit --no-fund --prefer-offline'
+            // Suppression forcée de node_modules (plus silencieux et robuste)
+            bat '''
+            IF EXIST node_modules (
+              rd /s /q node_modules >nul 2>&1 || echo "node_modules deletion failed or no permissions"
+            )
+            '''
 
+            // Config npm pour éviter erreurs réseau
+            bat '''
+            npm config set registry https://registry.npmjs.org/
+            npm config set fetch-retries 5
+            npm config set fetch-retry-mintimeout 20000
+            npm config set fetch-retry-maxtimeout 120000
+            '''
 
-            // Compilation de l'app Angular
+            // Installation des dépendances avec options pour minimiser audit et fund
+            bat 'npm install --no-audit --no-fund --prefer-offline'
+
+            // Compilation Angular en mode production
             bat 'npm run build --configuration=production'
 
-            // Build de l'image Docker depuis dist/
+            // Construction de l'image Docker (depuis Angular_Front)
             script {
                 docker.build("${REGISTRY}/front-end-angular", '.')
             }
