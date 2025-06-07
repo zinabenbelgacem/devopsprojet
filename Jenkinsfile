@@ -80,17 +80,27 @@ stage('Docker Login') {
             }
         }
 
-        stage('Build Angular Front') {
-            steps {
-                dir('Angular_Front') {
-                    bat 'npm install'
-                    bat 'npm run build --configuration=production'
-                    script {
-                        docker.build("${REGISTRY}/front-end-angular", '.')
-                    }
-                }
+     stage('Build Angular Front') {
+    steps {
+        dir('Angular_Front') {
+            // Nettoyage de node_modules si présent (évite EPERM)
+            bat 'rmdir /s /q node_modules'
+            bat 'del package-lock.json'
+
+            // Installation plus stable en CI/CD
+            bat 'npm ci --no-audit --no-fund --prefer-offline'
+
+            // Compilation de l'app Angular
+            bat 'npm run build --configuration=production'
+
+            // Build de l'image Docker depuis dist/
+            script {
+                docker.build("${REGISTRY}/front-end-angular", '.')
             }
         }
+    }
+}
+
 
         stage('Push All Images') {
             steps {
