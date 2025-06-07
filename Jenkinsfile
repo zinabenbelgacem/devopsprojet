@@ -112,7 +112,7 @@ stage('Build Angular Front') {
 }
 
 
-        stage('Push All Images') {
+        /*stage('Push All Images') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
@@ -125,7 +125,7 @@ stage('Build Angular Front') {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Deploy') {
             steps {
