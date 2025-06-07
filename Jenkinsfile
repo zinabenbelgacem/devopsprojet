@@ -84,7 +84,7 @@ stage('Docker Login') {
     steps {
         dir('Angular_Front') {
             // Nettoyage de node_modules si présent (évite EPERM)
-          bat 'rmdir /s /q node_modules'
+bat 'IF EXIST node_modules rmdir /s /q node_modules'
 bat 'npm install --no-audit --no-fund --prefer-offline'
 
 
