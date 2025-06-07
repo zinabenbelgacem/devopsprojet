@@ -84,11 +84,9 @@ stage('Docker Login') {
     steps {
         dir('Angular_Front') {
             // Nettoyage de node_modules si présent (évite EPERM)
-            bat 'rmdir /s /q node_modules'
-            bat 'del package-lock.json'
+          bat 'rmdir /s /q node_modules'
+bat 'npm install --no-audit --no-fund --prefer-offline'
 
-            // Installation plus stable en CI/CD
-            bat 'npm ci --no-audit --no-fund --prefer-offline'
 
             // Compilation de l'app Angular
             bat 'npm run build --configuration=production'
