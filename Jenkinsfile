@@ -131,7 +131,7 @@ stage('Build Angular Front') {
 stage('Deploy') {
   steps {
     echo 'Déploiement...'
-    sshagent(['ssh-server']) {
+    sshagent(['Vagrant-ssh']) {
       sh '''
       ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
         cd ~/deploy &&
