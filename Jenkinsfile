@@ -126,12 +126,7 @@ stage('Build Angular Front') {
                 }
             }
         }*/
-stage('Test SSH') {
-steps {
- sshagent(['ssh-server']) {
- bat 'ssh -V'
-} }
-}
+
 
 stage('Deploy') {
  steps {
