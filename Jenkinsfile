@@ -132,7 +132,7 @@ stage('Build Angular Front') {
         echo 'Début du déploiement'
         script {
             sshagent(['ssh-server']) {
-                sh '''
+                bat '''
                 ssh ubuntu@102.169.205.122 "
                     set -x
                     cd ~/deploy &&
