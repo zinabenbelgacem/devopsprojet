@@ -127,25 +127,24 @@ stage('Build Angular Front') {
             }
         }*/
 stage('Test SSH') {
-  steps {
-    sshagent(['ssh-server']) {
-      bat 'ssh -V'
-    }
-  }
+steps {
+ sshagent(['ssh-server']) {
+ bat 'ssh -V'
+} }
 }
 stage('Deploy') {
-  steps {
-    sshagent(['ssh-server']) {
-      sh '''
-      ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
-        cd ~/deploy &&
-        git pull &&
-        docker-compose pull &&
-        docker-compose up -d
-      "
-      '''
-    }
-  }
+ steps {
+ sshagent(['ssh-server']) {
+sh '''
+ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
+cd ~/deploy &&
+git pull &&
+ docker-compose pull &&
+ docker-compose up -d
+"
+'''
+}
+ }
 }
 
     }}
