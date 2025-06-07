@@ -129,18 +129,19 @@ stage('Build Angular Front') {
 
 
 stage('Deploy') {
- steps {
- sshagent(['Vagrant_ssh']) {
-sh '''
-ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
-cd ~/deploy &&
-git pull &&
- docker-compose pull &&
- docker-compose up -d
-"
-'''
-}
- }
+  steps {
+    echo 'Déploiement...'
+    sshagent(['ssh-server']) {
+      sh '''
+      ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
+        cd ~/deploy &&
+        git pull &&
+        docker-compose pull &&
+        docker-compose up -d
+      "
+      '''
+    }
+  }
 }
 
     }}
