@@ -128,22 +128,21 @@ stage('Build Angular Front') {
         }*/
 
  stage('Deploy') {
-            steps {
-                echo 'Début du déploiement'
-                sshagent(['ssh-server']) {
-                    sh '''
-                        ssh -v ubuntu@102.169.205.122 "
-                            echo 'Connexion SSH OK' &&
-                            cd ~/deploy || { echo 'Répertoire introuvable'; exit 1; } &&
-                            git pull &&
-                            docker-compose pull &&
-                            docker-compose up -d &&
-                            echo 'Déploiement terminé.'
-                        "
-                    '''
-                }
+    steps {
+        echo 'Début du déploiement'
+        script {
+            sshagent(['ssh-server']) {
+                sh '''
+                ssh ubuntu@102.169.205.122 "
+                    set -x
+                    cd ~/deploy &&
+                    git pull &&
+                    docker-compose pull &&
+                    docker-compose up -d
+                "
+                '''
             }
-
- }
+        }
     }
 }
+    }}
