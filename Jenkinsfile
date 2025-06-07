@@ -132,9 +132,10 @@ steps {
  bat 'ssh -V'
 } }
 }
+
 stage('Deploy') {
  steps {
- sshagent(['ssh-server']) {
+ sshagent(['Vagrant_ssh']) {
 sh '''
 ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 "
 cd ~/deploy &&
