@@ -140,7 +140,7 @@ stage('Deploy') {
         echo 'Déploiement...'
         sshagent(['Vagrant_ssh']) {
             bat '''
-            ssh -o StrictHostKeyChecking=no ubuntu@192.168.100.138 ^
+            ssh -o StrictHostKeyChecking=no vagrant@192.168.100.138 ^
             "cd ~/deploy && git pull && docker-compose pull && docker-compose up -d"
             '''
         }
