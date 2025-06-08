@@ -131,7 +131,7 @@ stage('Build Angular Front') {
     stage('Test SSH Agent') {
     steps {
         sshagent(['Vagrant_ssh']) {
-            bat 'echo SSH Agent works!'
+            sh  'echo SSH Agent works!'
         }
     }
 }
