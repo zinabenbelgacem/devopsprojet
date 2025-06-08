@@ -128,24 +128,16 @@ stage('Build Angular Front') {
         }*/
 
 
-/*stage('Test SSH Agent') {
+stage('Test SSH Agent') {
       steps {
         sshagent(credentials: ['Vagrant_ssh']) {
           sh 'ssh -o StrictHostKeyChecking=no vagrant@192.168.100.138 echo "SSH OK"'
         }
       }
-    }*/
-    stage('Deploy') {
- steps {
- echo 'Déploiement...'
- // Simulation du déploiement sans exécuter la commande réelle
-echo 'Connexion SSH simulée à vagrant@192.168.100.138'
- echo 'Commande simulée : cd ~/deploy && git pull && docker-compose pull && docker-compose up -d'
- echo '✅ Déploiement effectué avec succès (simulation)'
- }
-}
+    }
 
-/*stage('Deploy') {
+
+stage('Deploy') {
     steps {
         echo 'Déploiement...'
         sshagent(['Vagrant_ssh']) {
@@ -156,6 +148,6 @@ echo 'Connexion SSH simulée à vagrant@192.168.100.138'
         }
     }
 }
-*/
+
 
     }}
